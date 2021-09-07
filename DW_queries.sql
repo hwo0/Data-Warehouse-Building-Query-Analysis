@@ -1,6 +1,6 @@
 
 
-1. Determine the top 3 products in Dec 2019 in terms of total sales */
+/* 1. Determine the top 3 products in Dec 2019 in terms of total sales */
 select product_name, "SUM( TOTAL_SALES )", rank from(
    select p.product_id, p.product_name,s.t_date, sum(s.total_sale) as "SUM( TOTAL_SALES )",
        rank() over (order by sum(s.total_sale) desc) as rank
@@ -12,7 +12,7 @@ select product_name, "SUM( TOTAL_SALES )", rank from(
    where rank <= 3;
    
    
-2.Determine which customer produced highest sales in the whole year? */
+/* 2.Determine which customer produced highest sales in the whole year? */
 select * from (
       select c.customer_name, sum(s.total_sale) as "SUM( TOTAL_SALES )"
       from sales s inner join customer c
@@ -22,7 +22,7 @@ select * from (
 where rownum=1;
 
 
-3. How many sales transactions were there for the product that 
+/* 3. How many sales transactions were there for the product that 
 generated maximum sales revenue in 2019? 
 Also identify the:
 a) product quantity sold and
@@ -37,7 +37,7 @@ group by s.product_id,su.supplier_name) tab
 where rank =1;
 
 
-4. Present the quarterly sales analysis for all warehouses using drill down query concepts */
+/* 4. Present the quarterly sales analysis for all warehouses using drill down query concepts */
 select warehouse_name,
        sum(case when t_quarter = 1 then total_sale end) as q1_2019,
        sum(case when t_quarter = 2 then total_sale end) as q2_2019,
@@ -53,7 +53,7 @@ from (
 group by warehouse_id, warehouse_name
 order by warehouse_id;
 
-5. Create a materialised view named “Warehouse_Analysis_mv” that presents the productwise sales analysis for each warehouse. */
+/* 5. Create a materialised view named â€œWarehouse_Analysis_mvâ€ that presents the productwise sales analysis for each warehouse. */
 DROP MATERIALIZED VIEW Warehouse_Analysis_mv;
 CREATE MATERIALIZED VIEW Warehouse_Analysis_mv
 as 
